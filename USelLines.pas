@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, OpWString, ExtCtrls, Vcl.ComCtrls{, SDL_geoatlas};
+  StdCtrls, OpWString, ExtCtrls, Vcl.ComCtrls{, SDL_geoatlas}, uError, DUtils;
 
 type
   TForm1 = class(TForm)
@@ -25,6 +25,8 @@ type
     procedure GoButtonClick(Sender: TObject);
     procedure EditTekstClick(Sender: TObject);
     procedure EditFileNameClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
   public
@@ -162,8 +164,14 @@ begin
 
 end;
 
+procedure TForm1.FormCreate(Sender: TObject);
 begin
- with FormatSettings do begin {-Delphi XE6}
-  Decimalseparator := '.';
- end;
+InitialiseLogFile;
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+FinaliseLogFile;
+end;
+
 end.
